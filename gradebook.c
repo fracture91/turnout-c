@@ -125,7 +125,7 @@ int main(int argc, char **argv) {
 
 int superLogin() {
   char buff[10];
-  int su=1;
+  int su=0;
 
   printf("Password: ");
   gets(buff);
