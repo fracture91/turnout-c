@@ -124,11 +124,9 @@ int main(int argc, char **argv) {
 }
 
 int superLogin() {
-  char buff[10];
   int su=0;
-
-  printf("Password: ");
-  gets(buff);
+  //getpass is deprecated, but this is the most succinct way to do this
+  char *buff = getpass("Password: ");
 
   if(!strcmp(buff, PASSWORD)) {
     su = 1;
