@@ -14,3 +14,5 @@ Turnout C Patch
 
 6.  Restricted menu input to choices 1, 2, and 9 to prevent being able to change and see grades without knowing the superuser password.
 
+7.  Used DEBUG_MODE flag to only add in -debug and -config arguments at compile time on debug builds.  This means that you can only use these arguments if you have access to the source code and can build it in debug mode.  This makes it harder for an attacker to get useful information from debug printfs, and it's harder to get superuser access.
+

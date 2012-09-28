@@ -52,14 +52,18 @@ int main(int argc, char **argv) {
     int i;
     for(i = 1; i < argc; i++) {
       if(!strcasecmp(argv[i], "-debug")) {
+#ifdef DEBUG_MODE
         debug = 1;
+#endif
       }
       else if(!strcasecmp(argv[i], "-config")) {
+#ifdef DEBUG_MODE
         if(i < argc) {
           config = argv[i+1];
           i++;
 	  printf("Using config file: %s\n\n", config);
         }
+#endif
       }
       else if(!strcasecmp(argv[i], "--help")) {
         printf("Usage: turnout [OPTION]\n");
