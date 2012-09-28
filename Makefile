@@ -3,8 +3,8 @@
 # Last Updated 1/27/08 @ 1938 EDT
 
 CC = gcc
-DEBUG_FLAGS = -ggdb -Wall -DDEBUG_MODE
-FLAGS = -fno-stack-protector
+DEBUG_FLAGS = -fno-stack-protector -ggdb -Wall -DDEBUG_MODE
+FLAGS = -fstack-protector-all
 INCLUDES = -I/usr/include/mysql
 LIB_DIRS = -L/usr/lib/mysql
 LIBS = -lmysqlclient

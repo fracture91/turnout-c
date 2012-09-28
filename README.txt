@@ -10,3 +10,5 @@ Turnout C Patch
 
 4.  Get the current username with getpwuid(getuid)), instead of reading from the environment variable.  This prevents the user from seeing other people's grades or even attempting logging in as superuser by changing the environment variable.
 
+5.  Changed the makefile so it builds with -fstack-protector-all, except on debug builds.  This makes it harder for an attacker to take advantage of buffer overflow vulnerabilities.
+
