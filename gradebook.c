@@ -223,7 +223,12 @@ char *getGrade(const MYSQL *connect, const char *username) {
     return NULL;
   }
 
-  snprintf(&buff[0],1023,"SELECT grade FROM grades WHERE username='%s'",username);
+  unsigned int length = strlen(username);
+  char escaped_username[length*2+1];
+  mysql_real_escape_string(connect, escaped_username, username, length);
+  snprintf(&buff[0],1023,"SELECT grade FROM grades WHERE username='%s'",
+           escaped_username);
+
   if (mysql_query(connect,&buff[0]) != 0) {
     // If it failed, tell the user
     printf("Error: %s!\n", mysql_error(connect));
@@ -394,11 +399,15 @@ void changeGrade(const MYSQL *connect) {
     return;
   }
 
+  unsigned int length = strlen(uname);
+  char escaped_username[length*2+1];
+  mysql_real_escape_string(connect, escaped_username, uname, length);
+
   // Build our query
   if (choice=='N')
-    snprintf(&buff[0],1023,"UPDATE grades SET grade='NR' WHERE username='%s'",&uname[0]);
+    snprintf(&buff[0],1023,"UPDATE grades SET grade='NR' WHERE username='%s'", escaped_username);
   else
-    snprintf(&buff[0],1023,"UPDATE grades SET grade='%c' WHERE username='%s'",choice,&uname[0]);
+    snprintf(&buff[0],1023,"UPDATE grades SET grade='%c' WHERE username='%s'",choice, escaped_username);
 
   if (debug)
     printf("DEBUG: Query is %s\n",&buff[0]);

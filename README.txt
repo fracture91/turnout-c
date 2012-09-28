@@ -6,4 +6,5 @@ Turnout C Patch
 
 2.  Used getpass in superLogin to prevent buffer overflows which could allow a user to log in with an incorrect password, or potentially execute arbitrary code.
 
+3.  Escape SQL input with mysql_real_escape_string.  This prevents SQL injection attacks through the username input when changing grades, and through the USERNAME environment variable.
 
