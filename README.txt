@@ -16,3 +16,11 @@ Turnout C Patch
 
 7.  Used DEBUG_MODE flag to only add in -debug and -config arguments at compile time on debug builds.  This means that you can only use these arguments if you have access to the source code and can build it in debug mode.  This makes it harder for an attacker to get useful information from debug printfs, and it's harder to get superuser access.
 
+
+
+Regarding the database passwords stored in the executable:  There isn't really a simple way to solve this.  Anything that leaves the passwords in the executable is just obfuscation.  At some point, the user needs to be able to read the credentials to access the database.  Furthermore, any internal password checking (like the superuser password) can certainly be bypassed by a determined person by flipping some bits in memory.  However, we can at least only store a hash of the password so an attacker has to put forth some efort to find it, though it's especially vulnerable to brute force attacks because the attacker has easy access to the hash.
+
+The user really shouldn't be touching the database directly.  The proper way to do this is to have a separate server application running, which has individual accounts for each user.  The user then has to enter their credentials, the server verifies their identity and sets up a secure session, and then the user can perform very specific actions that don't involve providing SQL to run on the database.  However, I think that's well out of the scope of this assignment.  Here's what I'll do without getting ridiculous and rewriting the entire program:
+
+8.  Changed the cs440x password to something different than the database password, so that getting superuser access on the program and sudo access on the machine isn't trivial.
+
