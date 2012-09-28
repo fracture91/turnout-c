@@ -305,6 +305,11 @@ int showMenu(int superuser) {
   getchar();
   choice = (myChar-48);
 
+  //make sure the choice is valid
+  if(choice != 1 && choice != 2 && choice != 9) {
+    return -1; //trigger default case if not valid
+  }
+
   if (!superuser && (choice != 9))
     return 2+choice;
   else

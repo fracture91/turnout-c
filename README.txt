@@ -12,3 +12,5 @@ Turnout C Patch
 
 5.  Changed the makefile so it builds with -fstack-protector-all, except on debug builds.  This makes it harder for an attacker to take advantage of buffer overflow vulnerabilities.
 
+6.  Restricted menu input to choices 1, 2, and 9 to prevent being able to change and see grades without knowing the superuser password.
+
