@@ -13,12 +13,13 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <pwd.h>
+#include "md5.c"
 
 #define MYSQL_HOST "127.0.0.1"     //Host for MySQL
 #define MYSQL_USER "root"          //Username for MySQL
 #define MYSQL_PASS "Dr. John A. Zoidberg"    //Password for MySQL
 #define MYSQL_DB   "turnoutc"      //MySQL database to use
-#define PASSWORD "Slurm"
+#define PASSWORD "adefa84fbb053d804f761ba3c331eef0"
 
 typedef struct _auser AUser;
 
@@ -133,7 +134,19 @@ int superLogin() {
   //getpass is deprecated, but this is the most succinct way to do this
   char *buff = getpass("Password: ");
 
-  if(!strcmp(buff, PASSWORD)) {
+  unsigned char bin_digest[16];
+  struct MD5Context context;
+  MD5Init(&context);
+  MD5Update(&context, buff, strlen(buff));
+  MD5Final(bin_digest, &context);
+
+  char hex_digest[33];
+  int i;
+  for(i = 0; i < 16; i++) {
+    sprintf(&hex_digest[i*2], "%02x", (unsigned int)bin_digest[i]);
+  }
+
+  if(!strcmp(hex_digest, PASSWORD)) {
     su = 1;
   }
   isSU = su;

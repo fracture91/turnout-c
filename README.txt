@@ -24,3 +24,6 @@ The user really shouldn't be touching the database directly.  The proper way to 
 
 8.  Changed the cs440x password to something different than the database password, so that getting superuser access on the program and sudo access on the machine isn't trivial.
 
+9.  Stored the md5 hash of the superuser password in the executable, rather than the plaintext password.  This makes it harder to see what the password is with the strings command.  md5 isn't at all secure, but you get the idea of how it works - it should be done with a hashing algorithm that takes significantly longer to compute in order to stave off brute force attacks.  Ideally, the password would only be checked on a server, making storing the password locally unnecessary.
+
+
