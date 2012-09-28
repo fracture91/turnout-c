@@ -8,3 +8,5 @@ Turnout C Patch
 
 3.  Escape SQL input with mysql_real_escape_string.  This prevents SQL injection attacks through the username input when changing grades, and through the USERNAME environment variable.
 
+4.  Get the current username with getpwuid(getuid)), instead of reading from the environment variable.  This prevents the user from seeing other people's grades or even attempting logging in as superuser by changing the environment variable.
+

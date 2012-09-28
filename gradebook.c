@@ -12,6 +12,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <pwd.h>
 
 #define MYSQL_HOST "127.0.0.1"     //Host for MySQL
 #define MYSQL_USER "root"          //Username for MySQL
@@ -187,7 +188,7 @@ AUser *readConfig(const char *config) {
 // Pre:  The program is NOT run setuid()
 // Post: The username of the logged in user is returned
 char *getUsername() {
-  return getenv("USERNAME");
+  return getpwuid(getuid())->pw_name;
 }
 
 // Returns non-zero iff user is a member of the admins linked list
